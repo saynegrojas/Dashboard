@@ -34,7 +34,8 @@ const Item = ({ title, to, icon, selected, setSelected, isCollapsed }) => {
         color: colors.grey[100],
         marginBottom: `${!isCollapsed ? '' : '1.2rem'}`,
         display: `${!isCollapsed ? '' : 'flex'}`,
-        justifyContent: `${!isCollapsed ? 'space-between' : 'center'}`,
+        justifyContent: `${!isCollapsed ? '' : 'center'}`,
+        alignItems: `${!isCollapsed ? 'center' : ''}`,
       }}
     >
       {icon}
@@ -64,7 +65,7 @@ const Sidebar = () => {
           backgroundColor: 'transparent !important',
         },
         '& .pro-inner-item': {
-          padding: '5px 25px 5px 20px !important',
+          padding: '5px 20px 5px 20px !important',
           display: 'flex !important',
           justifyContent: 'space-between !important',
           alignItems: 'center !important',
@@ -131,6 +132,9 @@ const Sidebar = () => {
               setSelected={setSelected}
               isCollapsed={isCollapsed}
             />
+            <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px ' }}>
+              Data
+            </Typography>
             <Item
               title='Manage Team'
               to='/team'
@@ -155,6 +159,9 @@ const Sidebar = () => {
               setSelected={setSelected}
               isCollapsed={isCollapsed}
             />
+            <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
+              Pages
+            </Typography>
             <Item
               title='Profile Form'
               to='/form'
@@ -179,6 +186,9 @@ const Sidebar = () => {
               setSelected={setSelected}
               isCollapsed={isCollapsed}
             />
+            <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
+              Charts
+            </Typography>
             <Item
               title='Bar Chart'
               to='/bar'
