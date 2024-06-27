@@ -74,7 +74,7 @@ const Sidebar = () => {
           color: '#868dfb !important',
         },
         '& .pro-menu-item.active': {
-          color: '#6870a8 !important',
+          color: '#6870fa !important',
         },
       }}
     >
@@ -123,7 +123,7 @@ const Sidebar = () => {
           )}
 
           {/* Menu Items */}
-          <Box paddingLeft={!isCollapsed ? '10%' : undefined}>
+          <Box paddingLeft={isCollapsed ? undefined : '10%'}>
             <Item
               title='Dashboard'
               to='/'

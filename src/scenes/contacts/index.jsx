@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, useTheme, Typography } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
-import { mockDataTeam } from '../../data/mockData';
+import { mockDataContacts } from '../../data/mockData';
 import {
   AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon,
   LockOpenOutlined as LockOpenOutlinedIcon,
@@ -10,14 +10,15 @@ import {
 } from '@mui/icons-material';
 import Header from '../../components/Header';
 
-const Team = () => {
+const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  // columns for the tables from mockDataTeam data
+  // columns for the tables from mockDataContacts data
   // cellClassName: allow us to customize the column cell (color)
   const columns = [
-    { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center' },
+    { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center', flex: 0.5 },
+    { field: 'registerId', headerName: 'Register ID', headerAlign: 'center', align: 'center' },
     {
       field: 'name',
       headerName: 'Name',
@@ -42,48 +43,14 @@ const Team = () => {
       align: 'center',
       cellClassName: 'email-column--cell',
     },
-    {
-      field: 'access',
-      headerName: 'Access Level',
-      flex: 1,
-      headerAlign: 'center',
-      align: 'center',
-      renderCell: ({ row: { access } }) => {
-        const colorMap = {
-          user: colors.greenAccent[700],
-          admin: colors.greenAccent[600],
-          manager: colors.greenAccent[700],
-        };
-
-        const IconMap = {
-          user: <SecurityOutlinedIcon />,
-          admin: <AdminPanelSettingsOutlinedIcon />,
-          manager: <LockOpenOutlinedIcon />,
-        };
-
-        return (
-          <Box
-            display='flex'
-            justifyContent='center'
-            alignItems='center'
-            width='60%'
-            m='0 auto'
-            p='5px'
-            backgroundColor={colorMap[access]}
-          >
-            {IconMap[access]}
-            <Typography color={colors.grey[100]} sx={{ ml: '5px' }}>
-              {access}
-            </Typography>
-          </Box>
-        );
-      },
-    },
+    { field: 'address', headerName: 'Address', headerAlign: 'center', align: 'center', flex: 1 },
+    { field: 'city', headerName: 'City', headerAlign: 'center', align: 'center' },
+    { field: 'zipCode', headerName: 'Zip Code', headerAlign: 'center', align: 'center' },
   ];
 
   return (
     <Box m='20px'>
-      <Header title='TEAM' subtitle='Managing the Team Members' />
+      <Header title='CONTACTS' subtitle='List of Contacts for Future Reference' />
       <Box
         m='40px 0 0 0 '
         height='75vh'
@@ -117,14 +84,17 @@ const Team = () => {
             justifyContent: 'center',
           },
           '& .MuiCheckbox-root': {
-            color: `${colors.greenAccent[200]} !important`,
+            color: `${colors.greenAccent[100]} !important`,
+          },
+          '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
+            color: `${colors.grey[100]} !important`,
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid rows={mockDataContacts} columns={columns} slots={{ toolbar: GridToolbar }} />
       </Box>
     </Box>
   );
 };
 
-export default Team;
+export default Contacts;

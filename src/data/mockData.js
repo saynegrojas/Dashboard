@@ -85,7 +85,7 @@ export const mockDataContacts = [
     address: '0912 Won Street, Alabama, SY 10001',
     city: 'New York',
     zipCode: '10001',
-    registrarId: 123512,
+    registerId: 123512,
   },
   {
     id: 2,
@@ -96,7 +96,7 @@ export const mockDataContacts = [
     address: '1234 Main Street, New York, NY 10001',
     city: 'New York',
     zipCode: '13151',
-    registrarId: 123512,
+    registerId: 123512,
   },
   {
     id: 3,
@@ -107,7 +107,7 @@ export const mockDataContacts = [
     address: '3333 Want Blvd, Estanza, NAY 42125',
     city: 'New York',
     zipCode: '87281',
-    registrarId: 4132513,
+    registerId: 4132513,
   },
   {
     id: 4,
@@ -118,7 +118,7 @@ export const mockDataContacts = [
     address: '1514 Main Street, New York, NY 22298',
     city: 'New York',
     zipCode: '15551',
-    registrarId: 123512,
+    registerId: 123512,
   },
   {
     id: 5,
@@ -129,7 +129,7 @@ export const mockDataContacts = [
     address: '11122 Welping Ave, Tenting, CD 21321',
     city: 'Tenting',
     zipCode: '14215',
-    registrarId: 123512,
+    registerId: 123512,
   },
   {
     id: 6,
@@ -140,7 +140,7 @@ export const mockDataContacts = [
     address: '1234 Canvile Street, Esvazark, NY 10001',
     city: 'Esvazark',
     zipCode: '10001',
-    registrarId: 123512,
+    registerId: 123512,
   },
   {
     id: 7,
@@ -151,7 +151,7 @@ export const mockDataContacts = [
     address: '22215 Super Street, Everting, ZO 515234',
     city: 'Evertin',
     zipCode: '51523',
-    registrarId: 123512,
+    registerId: 123512,
   },
   {
     id: 8,
@@ -162,7 +162,7 @@ export const mockDataContacts = [
     address: '4123 Ever Blvd, Wentington, AD 142213',
     city: 'Esteras',
     zipCode: '44215',
-    registrarId: 512315,
+    registerId: 512315,
   },
   {
     id: 9,
@@ -173,7 +173,7 @@ export const mockDataContacts = [
     address: '51234 Avery Street, Cantory, ND 212412',
     city: 'Colunza',
     zipCode: '111234',
-    registrarId: 928397,
+    registerId: 928397,
   },
   {
     id: 10,
@@ -184,7 +184,7 @@ export const mockDataContacts = [
     address: '4123 Easer Blvd, Wentington, AD 142213',
     city: 'Esteras',
     zipCode: '44215',
-    registrarId: 533215,
+    registerId: 533215,
   },
   {
     id: 11,
@@ -194,8 +194,8 @@ export const mockDataContacts = [
     phone: '(444)555-6239',
     address: '51234 Fiveton Street, CunFory, ND 212412',
     city: 'Colunza',
-    zipCode: '1234',
-    registrarId: 92197,
+    zipCode: '12345',
+    registerId: 92197,
   },
 ];
 

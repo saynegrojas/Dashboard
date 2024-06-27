@@ -5,6 +5,7 @@ import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
 import Dashboard from './scenes/dashboard/index';
 import Team from './scenes/team/index';
+import Contacts from './scenes/contacts/index';
 // import Invoices from './scenes/invoices';
 // import Contacts from './scenes/contacts';
 // import BarChart from './scenes/barChart';
@@ -29,15 +30,15 @@ function App() {
             <Routes>
               <Route path='/' element={<Dashboard />} />
               <Route path='/team' element={<Team />} />
-              {/* <Route path='/contacts' element={Contacts} />
-              <Route path='/Invoices' element={Invoices} />
-              <Route path='/form' element={Form} />
-              <Route path='/bar' element={BarChart} />
-              <Route path='/line' element={LineChart} />
-              <Route path='/pie' element={PieChart} />
+              <Route path='/contacts' element={<Contacts />} />
+              {/* <Route path='/Invoices' element={<Invoices />} />
+              <Route path='/form' element={<Form />} />
+              <Route path='/bar' element={<BarChart />} />
+              <Route path='/line' element={<LineChart />} />
+              <Route path='/pie' element={<PieChart />} />
               <Route path='/faq' element={FAQ} />
-              <Route path='/geography' element={Geography} />
-              <Route path='/calendar' element={Calendar} /> */}
+              <Route path='/geography' element={<Geography />} />
+              <Route path='/calendar' element={<Calendar />} /> */}
             </Routes>
           </main>
         </div>
