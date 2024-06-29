@@ -6,10 +6,9 @@ import Sidebar from './scenes/global/Sidebar';
 import Dashboard from './scenes/dashboard/index';
 import Team from './scenes/team/index';
 import Contacts from './scenes/contacts/index';
-// import Invoices from './scenes/invoices';
-// import Contacts from './scenes/contacts';
+import Invoices from './scenes/invoices/index';
 // import BarChart from './scenes/barChart';
-// import Form from './scenes/form';
+import Form from './scenes/form/index';
 // import LineChart from './scenes/lineChart';
 // import PieChart from './scenes/pieChart';
 // import FAQ from './scenes/faq';
@@ -31,9 +30,9 @@ function App() {
               <Route path='/' element={<Dashboard />} />
               <Route path='/team' element={<Team />} />
               <Route path='/contacts' element={<Contacts />} />
-              {/* <Route path='/Invoices' element={<Invoices />} />
+              <Route path='/invoices' element={<Invoices />} />
               <Route path='/form' element={<Form />} />
-              <Route path='/bar' element={<BarChart />} />
+              {/* <Route path='/bar' element={<BarChart />} />
               <Route path='/line' element={<LineChart />} />
               <Route path='/pie' element={<PieChart />} />
               <Route path='/faq' element={FAQ} />
