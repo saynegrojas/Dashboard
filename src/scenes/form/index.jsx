@@ -41,7 +41,7 @@ const Form = () => {
         initialValues={initialValues}
         validationSchema={userSchema}
       >
-        {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
+        {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isValid }) => (
           <form onSubmit={handleSubmit}>
             <Box
               display='grid'
@@ -131,7 +131,7 @@ const Form = () => {
               />
             </Box>
             <Box display='flex' justifyContent='end' mt='20px'>
-              <Button type='submit' color='secondary' variant='contained'>
+              <Button type='submit' color='secondary' variant='contained' disabled={!isValid}>
                 Create New User
               </Button>
             </Box>
