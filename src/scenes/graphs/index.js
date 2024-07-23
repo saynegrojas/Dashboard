@@ -1,3 +1,3 @@
-export { default as BarChart } from '../graphs/bar-chart/index';
-export { default as LineChart } from '../graphs/line-graph/index';
-export { default as PieChart } from '../graphs/pie-chart/index';
+export { default as Bar } from '../graphs/bar-chart/index';
+export { default as Line } from '../graphs/line-graph/index';
+export { default as Pie } from '../graphs/pie-chart/index';
