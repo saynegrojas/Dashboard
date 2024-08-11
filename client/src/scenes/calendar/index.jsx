@@ -15,6 +15,7 @@ const Calendar = () => {
   const [currentEvents, setCurrentEvents] = useState(null); //evenets we add to our calendar
 
   const handleDateClick = (selectedDate) => {
+    console.log(selectedDate);
     // TODO: create a modal
     const title = prompt('Please enter a new title for your event');
     const calendarApi = selectedDate.view.calendar;
