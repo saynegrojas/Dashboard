@@ -6,7 +6,6 @@ import { geoFeatures } from '../data/mockGeoFeatures';
 import { mockGeographyData as data } from '../data/mockData';
 
 const GeographyChart = ({ isDashboard = false }) => {
-  console.log('geoFeatures', geoFeatures);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (

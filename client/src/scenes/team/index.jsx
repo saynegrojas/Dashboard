@@ -1,23 +1,40 @@
-import React from 'react';
-import { Box, useTheme, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, useTheme, Typography, LinearProgress } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
-import { mockDataTeam } from '../../data/mockData';
 import {
   AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon,
   LockOpenOutlined as LockOpenOutlinedIcon,
   SecurityOutlined as SecurityOutlinedIcon,
 } from '@mui/icons-material';
 import Header from '../../components/Header';
+import useFetchTeam from '../../hooks/useFetchTeam';
+import makeRequest from '../../utils/makeRequest';
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [member, setMember] = useState(null);
+  const { team, loading, error } = useFetchTeam();
 
-  // columns for the tables from mockDataTeam data
+  // fetch single team member
+  const fetchTeamMember = async (id) => {
+    try {
+      const response = await makeRequest('GET', 'api/team/getById', { id });
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
+  };
+
+  // columns for the tables from team data
   // cellClassName: allow us to customize the column cell (color)
   const columns = [
-    { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center' },
+    {
+      field: 'id',
+      headerName: 'ID',
+      headerAlign: 'center',
+      align: 'center',
+    },
     {
       field: 'name',
       headerName: 'Name',
@@ -85,7 +102,7 @@ const Team = () => {
     <Box m='20px'>
       <Header title='TEAM' subtitle='Managing the Team Members' />
       <Box
-        m='40px 0 0 0 '
+        m='40px 0 0 0'
         height='75vh'
         sx={{
           '& .MuiDataGrid-root': {
@@ -121,7 +138,26 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        {loading ? (
+          <Box width='50%' m='0 auto' mt='40%'>
+            <Typography
+              variant='h3'
+              color={colors.grey[100]}
+              sx={{ mb: '20px', display: 'flex', justifyContent: 'center' }}
+            >
+              Loading...
+            </Typography>
+            <LinearProgress sx={{ color: colors.primary[400] }} />
+          </Box>
+        ) : (
+          <DataGrid
+            rows={team}
+            columns={columns}
+            member={member}
+            disableColumnSelector
+            onRowClick={(params) => fetchTeamMember(params.row.id)}
+          />
+        )}
       </Box>
     </Box>
   );

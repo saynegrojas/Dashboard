@@ -15,8 +15,17 @@ const Team = {
       console.error('Error executing team getAll query:', error);
     }
   },
-  getById: (id) => {
-    return connection.findById(id);
+  getById: async (id) => {
+    try {
+      const [query, replacements] = qryGet({
+        table: [tableName],
+        where: [['id', '=', id]],
+      });
+      const [row] = await connection.query(query, replacements);
+      return row;
+    } catch (error) {
+      console.error('Error executing team getById query:', error);
+    }
   },
   create: async (member) => {
     const { query, values } = qryInsert(tableName, member);

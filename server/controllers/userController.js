@@ -19,4 +19,14 @@ const createUser = async (request, response) => {
   }
 };
 
-export { getAllUsers, createUser };
+const deleteUser = async (request, response) => {
+  try {
+    const { id } = request.params;
+    const userId = await User.delete(id);
+    response.status(200).json({ userId });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+};
+
+export { getAllUsers, createUser, deleteUser };
