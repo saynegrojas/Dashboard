@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const makeRequest = async (method, endRoute, queryParam = null, body = null) => {
   try {
-    const baseURL = process.env.REACT_APP_SERVER_URL; // Replace with your actual base URL
+    const baseURL = process.env.REACT_APP_SERVER_URL;
     let url = `${baseURL}/${endRoute}`;
 
     if (queryParam) {

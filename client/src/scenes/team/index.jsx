@@ -10,6 +10,7 @@ import {
 import Header from '../../components/Header';
 import useFetchTeam from '../../hooks/useFetchTeam';
 import generateEndpoints from '../../constants';
+import axios from 'axios';
 
 const Team = () => {
   const theme = useTheme();
@@ -24,28 +25,14 @@ const Team = () => {
   const fetchTeamMember = async (id) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${apiUrl}/api/team/getById/?id=${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        setHttpError(`Encountered http error: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log(result);
-      setTeam(result);
+      const response = await axios.get(`${apiUrl}/api/team/getById/?id=${id}`);
+      setTeam(response.data);
     } catch (error) {
       setHttpError(error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  console.log(team);
 
   // columns for the tables from team data
   // cellClassName: allow us to customize the column cell (color)
