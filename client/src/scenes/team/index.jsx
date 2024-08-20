@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, useTheme, Typography, LinearProgress } from '@mui/material';
+import { Box, useTheme, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
 import {
@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import useFetchTeam from '../../hooks/useFetchTeam';
 import generateEndpoints from '../../constants';
 import axios from 'axios';
+import LoadingProgress from '../../components/LoadingProgress';
 
 const Team = () => {
   const theme = useTheme();
@@ -149,16 +150,7 @@ const Team = () => {
         }}
       >
         {loading || isLoading ? (
-          <Box width='50%' m='0 auto' mt='40%'>
-            <Typography
-              variant='h3'
-              color={colors.grey[100]}
-              sx={{ mb: '20px', display: 'flex', justifyContent: 'center' }}
-            >
-              Loading...
-            </Typography>
-            <LinearProgress sx={{ color: colors.primary[400] }} />
-          </Box>
+          <LoadingProgress />
         ) : (
           <DataGrid
             rows={team}

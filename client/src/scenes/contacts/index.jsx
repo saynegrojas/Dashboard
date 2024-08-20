@@ -1,24 +1,21 @@
 import React from 'react';
-import { Box, useTheme, Typography } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
-import { mockDataContacts } from '../../data/mockData';
-import {
-  AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon,
-  LockOpenOutlined as LockOpenOutlinedIcon,
-  SecurityOutlined as SecurityOutlinedIcon,
-} from '@mui/icons-material';
 import Header from '../../components/Header';
+import useFetchContacts from '../../hooks/useFetchContacts';
+import LoadingProgress from '../../components/LoadingProgress';
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { contacts, loading, error } = useFetchContacts();
 
   // columns for the tables from mockDataContacts data
   // cellClassName: allow us to customize the column cell (color)
   const columns = [
     { field: 'id', headerName: 'ID', headerAlign: 'center', align: 'center', flex: 0.5 },
-    { field: 'registerId', headerName: 'Register ID', headerAlign: 'center', align: 'center' },
+    // { field: 'registerId', headerName: 'Register ID', headerAlign: 'center', align: 'center' },
     {
       field: 'name',
       headerName: 'Name',
@@ -45,8 +42,10 @@ const Contacts = () => {
     },
     { field: 'address', headerName: 'Address', headerAlign: 'center', align: 'center', flex: 1 },
     { field: 'city', headerName: 'City', headerAlign: 'center', align: 'center' },
-    { field: 'zipCode', headerName: 'Zip Code', headerAlign: 'center', align: 'center' },
+    { field: 'zip_code', headerName: 'Zip Code', headerAlign: 'center', align: 'center' },
   ];
+
+  if (error) return <div>Error {error}</div>;
 
   return (
     <Box m='20px'>
@@ -91,7 +90,11 @@ const Contacts = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataContacts} columns={columns} slots={{ toolbar: GridToolbar }} />
+        {loading ? (
+          <LoadingProgress />
+        ) : (
+          <DataGrid rows={contacts} columns={columns} slots={{ toolbar: GridToolbar }} />
+        )}
       </Box>
     </Box>
   );

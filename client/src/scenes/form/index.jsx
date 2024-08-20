@@ -10,8 +10,10 @@ const initialValues = {
   lastName: '',
   email: '',
   contact: '',
+  age: '',
   address: '',
-  address2: '',
+  zipCode: '',
+  city: '',
 };
 
 const phoneRegExp =
@@ -22,8 +24,10 @@ const userSchema = yup.object().shape({
   lastName: yup.string().required('required'),
   email: yup.string().email('invalid email').required('required'),
   contact: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('required'),
+  age: yup.number(),
   address: yup.string().required('required'),
-  address2: yup.string().required('required'),
+  zipCode: yup.string().required('required'),
+  city: yup.string().required('required'),
 });
 
 const Form = () => {
@@ -81,6 +85,19 @@ const Form = () => {
                 fullWidth
                 variant='filled'
                 type='text'
+                label='Age'
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.age || ''}
+                name='age'
+                error={!!touched.age && !!errors.age}
+                helperText={touched.age && errors.age}
+                sx={{ gridColumn: 'span 1' }}
+              />
+              <TextField
+                fullWidth
+                variant='filled'
+                type='text'
                 label='Email'
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -88,7 +105,7 @@ const Form = () => {
                 name='email'
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
-                sx={{ gridColumn: 'span 4' }}
+                sx={{ gridColumn: 'span 3' }}
               />
               <TextField
                 fullWidth
@@ -101,7 +118,7 @@ const Form = () => {
                 name='contact'
                 error={!!touched.contact && !!errors.contact}
                 helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: 'span 4' }}
+                sx={{ gridColumn: 'span 2' }}
               />
               <TextField
                 fullWidth
@@ -114,9 +131,9 @@ const Form = () => {
                 name='address'
                 error={!!touched.address && !!errors.address}
                 helperText={touched.address && errors.address}
-                sx={{ gridColumn: 'span 4' }}
+                sx={{ gridColumn: 'span 2' }}
               />
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant='filled'
                 type='text'
@@ -127,7 +144,33 @@ const Form = () => {
                 name='address2'
                 error={!!touched.address2 && !!errors.address2}
                 helperText={touched.address2 && errors.address2}
-                sx={{ gridColumn: 'span 4' }}
+                sx={{ gridColumn: 'span 2' }}
+              /> */}
+              <TextField
+                fullWidth
+                variant='filled'
+                type='text'
+                label='City'
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.city || ''}
+                name='city'
+                error={!!touched.city && !!errors.city}
+                helperText={touched.city && errors.city}
+                sx={{ gridColumn: 'span 2' }}
+              />
+              <TextField
+                fullWidth
+                variant='filled'
+                type='text'
+                label='Zip Code'
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.zipCode || ''}
+                name='zipCode'
+                error={!!touched.zipCode && !!errors.zipCode}
+                helperText={touched.zipCode && errors.zipCode}
+                sx={{ gridColumn: 'span 2' }}
               />
             </Box>
             <Box display='flex' justifyContent='end' mt='20px'>
