@@ -39,11 +39,28 @@ const deleteTeamMember = async (request, response) => {
 
 const getTeamMemberById = async (request, response) => {
   try {
-    const member = await Team.getById(request.query.id);
-    response.status(200).json({ member });
+    const data = await Team.getById(request.query.id);
+    response.status(200).json(data);
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
 };
 
-export { getAllTeam, createTeamMember, updateTeamMember, deleteTeamMember, getTeamMemberById };
+const getAllItems = async (request, response) => {
+  console.log(request.query);
+  try {
+    const items = await Team.getAllItems(request.query.name);
+    response.status(200).json(items);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+};
+
+export {
+  getAllTeam,
+  createTeamMember,
+  updateTeamMember,
+  deleteTeamMember,
+  getTeamMemberById,
+  getAllItems,
+};

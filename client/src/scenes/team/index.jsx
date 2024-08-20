@@ -9,22 +9,43 @@ import {
 } from '@mui/icons-material';
 import Header from '../../components/Header';
 import useFetchTeam from '../../hooks/useFetchTeam';
-import makeRequest from '../../utils/makeRequest';
+import generateEndpoints from '../../constants';
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [member, setMember] = useState(null);
-  const { team, loading, error } = useFetchTeam();
+  const { team, loading, error, setTeam } = useFetchTeam();
+  const [isLoading, setIsLoading] = useState(false);
+  const [httpError, setHttpError] = useState();
+
+  const apiUrl = generateEndpoints();
 
   // fetch single team member
   const fetchTeamMember = async (id) => {
+    setIsLoading(true);
     try {
-      const response = await makeRequest('GET', 'api/team/getById', { id });
+      const response = await fetch(`${apiUrl}/api/team/getById/?id=${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        setHttpError(`Encountered http error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(result);
+      setTeam(result);
     } catch (error) {
-      console.error('Error creating user:', error);
+      setHttpError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  console.log(team);
 
   // columns for the tables from team data
   // cellClassName: allow us to customize the column cell (color)
@@ -98,6 +119,8 @@ const Team = () => {
     },
   ];
 
+  if (httpError || error) return <div>Error {error ?? httpError}</div>;
+
   return (
     <Box m='20px'>
       <Header title='TEAM' subtitle='Managing the Team Members' />
@@ -138,7 +161,7 @@ const Team = () => {
           },
         }}
       >
-        {loading ? (
+        {loading || isLoading ? (
           <Box width='50%' m='0 auto' mt='40%'>
             <Typography
               variant='h3'
@@ -153,7 +176,6 @@ const Team = () => {
           <DataGrid
             rows={team}
             columns={columns}
-            member={member}
             disableColumnSelector
             onRowClick={(params) => fetchTeamMember(params.row.id)}
           />

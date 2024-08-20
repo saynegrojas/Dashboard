@@ -2,6 +2,7 @@ import createRouter from '../utils/createRouter.js';
 import {
   createTeamMember,
   deleteTeamMember,
+  getAllItems,
   getAllTeam,
   getTeamMemberById,
   updateTeamMember,
@@ -14,5 +15,6 @@ teamRouter.post('/create', createTeamMember);
 teamRouter.get('/getById', getTeamMemberById);
 teamRouter.patch('/update', updateTeamMember);
 teamRouter.delete('/delete', deleteTeamMember);
+teamRouter.get('/getAllItems', getAllItems);
 
 export default teamRouter;

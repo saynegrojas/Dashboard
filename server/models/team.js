@@ -19,10 +19,11 @@ const Team = {
     try {
       const [query, replacements] = qryGet({
         table: [tableName],
-        where: [['id', '=', id]],
+        // where: [['id', '=', id]],
       });
-      const [row] = await connection.query(query, replacements);
-      return row;
+      const [rows] = await connection.query(query, replacements);
+      const singleRow = rows.filter((row) => row.id.toString() === id.toString());
+      return singleRow;
     } catch (error) {
       console.error('Error executing team getById query:', error);
     }
@@ -41,6 +42,20 @@ const Team = {
   },
   delete: (id) => {
     return connection.findByIdAndDelete(id);
+  },
+
+  getAllItems: async (name) => {
+    try {
+      const [query, replacements] = qryGet({
+        table: [tableName],
+      });
+      const rows = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig', 'Grape', 'Honeydew'];
+      const singleRow = rows.filter((row) => row.toLowerCase().includes(name.toLowerCase()));
+      console.log(singleRow);
+      return singleRow;
+    } catch (error) {
+      console.error('Error executing team getAll query:', error);
+    }
   },
 };
 
