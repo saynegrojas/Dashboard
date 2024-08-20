@@ -29,6 +29,7 @@ const createInvoice = async (request, response) => {
   }
 };
 
+// TODO: Need to delete transaction associated with the invoice_id
 // const deleteUser = async (request, response) => {
 //   try {
 //     const { id } = request.params;
