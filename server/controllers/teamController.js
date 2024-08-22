@@ -10,13 +10,15 @@ const getAllTeam = async (request, response) => {
 };
 
 const createTeamMember = async (request, response) => {
-  try {
-    console.log(request.headers);
-    const memberId = await Team.create(request.body);
-    response.status(201).json({ memberId });
-  } catch (error) {
-    response.status(500).json({ error: error.message });
-  }
+  console.log(request.body);
+  // TODO: Work on submitting team to db
+  // try {
+  //   console.log(request.headers);
+  //   const memberId = await Team.create(request.body);
+  //   response.status(201).json({ memberId });
+  // } catch (error) {
+  //   response.status(500).json({ error: error.message });
+  // }
 };
 
 const updateTeamMember = async (request, response) => {

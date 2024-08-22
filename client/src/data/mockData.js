@@ -1,5 +1,7 @@
 import { tokens } from '../theme';
 
+export const accessTypes = [{ value: 'admin' }, { value: 'manager' }, { value: 'user' }];
+
 export const mockDataTeam = [
   {
     id: 1,

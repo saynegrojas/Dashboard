@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Autocomplete, Box, Button, TextField } from '@mui/material';
 import { Formik } from 'formik';
-import * as yup from 'yup';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Header from '../../components/Header';
+import formSchemaFunction from './schema';
+import axios from 'axios';
+import generateEndpoints from '../../constants';
+import { accessTypes } from '../../data/mockData';
 
 const initialValues = {
   firstName: '',
@@ -14,38 +17,61 @@ const initialValues = {
   address: '',
   zipCode: '',
   city: '',
+  access: '',
 };
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-const userSchema = yup.object().shape({
-  firstName: yup.string().required('required'),
-  lastName: yup.string().required('required'),
-  email: yup.string().email('invalid email').required('required'),
-  contact: yup.string().matches(phoneRegExp, 'Phone number is not valid').required('required'),
-  age: yup.number(),
-  address: yup.string().required('required'),
-  zipCode: yup.string().required('required'),
-  city: yup.string().required('required'),
-});
-
-const Form = () => {
+const Form = ({
+  endPoint,
+  setIsLoading,
+  setData,
+  title = 'CREATE USER',
+  subtitle = 'Create a new user profile',
+  submitLabel = 'Create New User',
+  showAccess = false,
+  showAddress = false,
+  showCity = false,
+  showZip = false,
+  setOpenModal,
+}) => {
   const isNonMobile = useMediaQuery('(min-width:600px)');
-
-  const handleFormSubmit = (values) => {
-    console.log('Form submitted', values);
+  const apiUrl = generateEndpoints();
+  console.log(showAccess, showAddress, showCity, showZip);
+  const handleFormSubmit = async (values) => {
+    console.log(values);
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${apiUrl}/${endPoint}`, {
+        ...values,
+        name: `${values.firstName} ${values.lastName}`,
+        phone: values.contact,
+      });
+      setData(response.data);
+      setOpenModal(prev => !prev);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <Box m='20px'>
-      <Header title='CREATE USER' subtitle='Create a new user profile' />
+      <Header title={title} subtitle={subtitle} />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
-        validationSchema={userSchema}
+        validationSchema={formSchemaFunction(showAccess, showAddress, showCity, showZip)}
       >
-        {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isValid }) => (
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          isValid,
+          setFieldValue,
+        }) => (
           <form onSubmit={handleSubmit}>
             <Box
               display='grid'
@@ -120,19 +146,67 @@ const Form = () => {
                 helperText={touched.contact && errors.contact}
                 sx={{ gridColumn: 'span 2' }}
               />
-              <TextField
-                fullWidth
-                variant='filled'
-                type='text'
-                label='Address 1'
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address || ''}
-                name='address'
-                error={!!touched.address && !!errors.address}
-                helperText={touched.address && errors.address}
-                sx={{ gridColumn: 'span 2' }}
-              />
+              {showAddress ? (
+                <TextField
+                  fullWidth
+                  variant='filled'
+                  type='text'
+                  label='Address 1'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.address || ''}
+                  name='address'
+                  error={!!touched.address && !!errors.address}
+                  helperText={touched.address && errors.address}
+                  sx={{ gridColumn: 'span 2' }}
+                />
+              ) : null}
+              {showAccess ? (
+                <TextField
+                  fullWidth
+                  variant='filled'
+                  type='text'
+                  label='Access'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.access || ''}
+                  name='access'
+                  error={!!touched.access && !!errors.access}
+                  helperText={touched.access && errors.access}
+                  sx={{ gridColumn: 'span 2' }}
+                />
+              ) : // <Autocomplete
+              //   fullWidth
+              //   variant='filled'
+              //   sx={{ gridColumn: 'span 2' }}
+              //   id='combo-box-demo'
+              //   onChange={handleChange}
+              //   onBlur={handleBlur}
+              //   options={accessTypes}
+              //   // renderInput={(params) => <TextField {...params} label='Access' />}
+              //   getOptionLabel={(option) => option.value}
+              //   renderOption={(props, option) => {
+              //     return (
+              //       <li {...props} key={option.value} value={option.value}>
+              //         {option.value}
+              //       </li>
+              //     );
+              //   }}
+              //   renderInput={(params) => (
+              //     <TextField
+              //       {...params}
+              //       label='Access'
+              //       variant='standard'
+              //       // onChange={(event) => setFieldValue('access', event.target.value)}
+              //       helperText={
+              //         errors.access &&
+              //         touched.access && <span className='error'>{errors.access}</span>
+              //       }
+              //     />
+              //   )}
+
+              // />
+              null}
               {/* <TextField
                 fullWidth
                 variant='filled'
@@ -146,36 +220,40 @@ const Form = () => {
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: 'span 2' }}
               /> */}
-              <TextField
-                fullWidth
-                variant='filled'
-                type='text'
-                label='City'
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.city || ''}
-                name='city'
-                error={!!touched.city && !!errors.city}
-                helperText={touched.city && errors.city}
-                sx={{ gridColumn: 'span 2' }}
-              />
-              <TextField
-                fullWidth
-                variant='filled'
-                type='text'
-                label='Zip Code'
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.zipCode || ''}
-                name='zipCode'
-                error={!!touched.zipCode && !!errors.zipCode}
-                helperText={touched.zipCode && errors.zipCode}
-                sx={{ gridColumn: 'span 2' }}
-              />
+              {showCity ? (
+                <TextField
+                  fullWidth
+                  variant='filled'
+                  type='text'
+                  label='City'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.city || ''}
+                  name='city'
+                  error={!!touched.city && !!errors.city}
+                  helperText={touched.city && errors.city}
+                  sx={{ gridColumn: 'span 2' }}
+                />
+              ) : null}
+              {showZip ? (
+                <TextField
+                  fullWidth
+                  variant='filled'
+                  type='text'
+                  label='Zip Code'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.zipCode || ''}
+                  name='zipCode'
+                  error={!!touched.zipCode && !!errors.zipCode}
+                  helperText={touched.zipCode && errors.zipCode}
+                  sx={{ gridColumn: 'span 2' }}
+                />
+              ) : null}
             </Box>
             <Box display='flex' justifyContent='end' mt='20px'>
               <Button type='submit' color='secondary' variant='contained' disabled={!isValid}>
-                Create New User
+                {submitLabel}
               </Button>
             </Box>
           </form>
