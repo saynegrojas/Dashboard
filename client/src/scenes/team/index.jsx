@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
-import { Box, useTheme, Typography } from '@mui/material';
+import { Box, useTheme, Typography, Button, Modal } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
 import {
   AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon,
   LockOpenOutlined as LockOpenOutlinedIcon,
   SecurityOutlined as SecurityOutlinedIcon,
+  Add as AddIcon,
 } from '@mui/icons-material';
 import Header from '../../components/Header';
 import useFetchTeam from '../../hooks/useFetchTeam';
 import generateEndpoints from '../../constants';
 import axios from 'axios';
 import LoadingProgress from '../../components/LoadingProgress';
+import { getTableStyle, getModalStyle } from './helperFunction';
+import Form from '../form';
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { team, loading, error, setTeam } = useFetchTeam();
   const [isLoading, setIsLoading] = useState(false);
-  const [httpError, setHttpError] = useState();
+  const [httpError, setHttpError] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   const apiUrl = generateEndpoints();
-
+  const access = true;
   // fetch single team member
   const fetchTeamMember = async (id) => {
     setIsLoading(true);
@@ -35,6 +39,11 @@ const Team = () => {
     }
   };
 
+  const handleClose = () => setOpenModal(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  };
   // columns for the tables from team data
   // cellClassName: allow us to customize the column cell (color)
   const columns = [
@@ -111,44 +120,23 @@ const Team = () => {
 
   return (
     <Box m='20px'>
-      <Header title='TEAM' subtitle='Managing the Team Members' />
-      <Box
-        m='40px 0 0 0'
-        height='75vh'
-        sx={{
-          '& .MuiDataGrid-root': {
-            border: 'none',
-          },
-          '& .MuiDataGrid-cell': {
-            borderBottom: 'none',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          '& .name-column--cell': {
-            color: colors.greenAccent[300],
-          },
-          '& .email-column--cell': {
-            color: colors.greenAccent[300],
-          },
-          '& .MuiDataGrid-columnHeader': {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: 'none',
-          },
-          '& .MuiDataGrid-virtualScroller': {
-            backgroundColor: colors.primary[400],
-          },
-          '& .MuiDataGrid-footerContainer': {
-            borderTop: 'none',
-            backgroundColor: colors.blueAccent[700],
-            display: 'flex',
-            justifyContent: 'center',
-          },
-          '& .MuiCheckbox-root': {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
-      >
+      <Box display='flex' justifyContent='space-between' alignItems='center'>
+        <Header title='TEAM' subtitle='Managing the Team Members' />
+        <Box>
+          <Button
+            onClick={handleOpenModal}
+            sx={{
+              backgroundColor: colors.blueAccent[700],
+              color: colors.grey[100],
+              padding: '10px 20px',
+            }}
+          >
+            Add Member
+            <AddIcon color={colors.primary[700]} sx={{ ml: '10px' }} />
+          </Button>
+        </Box>
+      </Box>
+      <Box m='10px 0 0 0' height='75vh' sx={getTableStyle(colors)}>
         {loading || isLoading ? (
           <LoadingProgress />
         ) : (
@@ -160,6 +148,29 @@ const Team = () => {
           />
         )}
       </Box>
+      <Modal
+        open={openModal}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={getModalStyle(colors)}>
+          <Form
+            endPoint='api/team/create'
+            title='CREATE TEAM MEMBER'
+            subtitle='Create a new team member profile'
+            submitLabel='Create New Member'
+            showAccess={access}
+            setIsLoading={setIsLoading}
+            setData={setTeam}
+            setError={setHttpError}
+            setOpenModal={setOpenModal}
+            showAddress={false}
+            showCity={false}
+            showZip={false}
+          />
+        </Box>
+      </Modal>
     </Box>
   );
 };

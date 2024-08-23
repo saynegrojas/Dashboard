@@ -29,10 +29,18 @@ const Team = {
     }
   },
   create: async (member) => {
+    let results = [];
     const { query, values } = qryInsert(tableName, member);
     try {
       const [result] = await connection.query(query, values);
-      return result.insertId;
+      if (result.insertId) {
+        const [query, replacements] = qryGet({
+          table: [tableName],
+        });
+        const [rows] = await connection.query(query, replacements);
+        results = rows;
+      }
+      return results;
     } catch (error) {
       console.error('Error executing team create query:', error);
     }
@@ -51,7 +59,6 @@ const Team = {
       });
       const rows = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig', 'Grape', 'Honeydew'];
       const singleRow = rows.filter((row) => row.toLowerCase().includes(name.toLowerCase()));
-      console.log(singleRow);
       return singleRow;
     } catch (error) {
       console.error('Error executing team getAll query:', error);

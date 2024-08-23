@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import { Box, IconButton, useTheme, InputBase } from '@mui/material';
+import { Box, IconButton, useTheme, InputBase, Tooltip } from '@mui/material';
 import { ColorModeContext, tokens } from '../../theme';
 import {
   DarkModeOutlined as DarkModeOutlinedIcon,
   LightModeOutlined as LightModeOutlinedIcon,
   Search as SearchIcon,
   NotificationAddOutlined as NotificationOutlinedIcon,
-  SettingsOutlined as SettingsOutlinedIcon,
-  PersonOutlined as PersonOutlinedIcon,
 } from '@mui/icons-material';
-
-// import SearchIcon from '@mui/icons-material/Search';
+import TopbarDropdown from '../../components/TopbarDropdown';
+import { mockProfileOptions, mockSettingOptions } from '../../data/mockData';
+import NotificationDrawer from '../../components/NotificationDrawer';
 
 const Topbar = () => {
   const theme = useTheme();
@@ -37,18 +36,14 @@ const Topbar = () => {
 
       {/* Icons */}
       <Box display='flex'>
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === 'dark' ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
-        </IconButton>
-        <IconButton>
-          <NotificationOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+        <Tooltip title={theme.palette.mode === 'dark' ? 'dark' : 'light'}>
+          <IconButton onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === 'dark' ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+          </IconButton>
+        </Tooltip>
+        <NotificationDrawer />
+        <TopbarDropdown data={mockSettingOptions} iconName='Settings' tooltipTitle='Settings' />
+        <TopbarDropdown data={mockProfileOptions} iconName='Person' tooltipTitle='Profile' />
       </Box>
     </Box>
   );
