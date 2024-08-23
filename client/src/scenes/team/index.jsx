@@ -117,7 +117,6 @@ const Team = () => {
   ];
 
   if (httpError || error) return <div>Error {error ?? httpError}</div>;
-  console.log('open', openModal);
 
   return (
     <Box m='20px'>
@@ -166,6 +165,9 @@ const Team = () => {
             setData={setTeam}
             setError={setHttpError}
             setOpenModal={setOpenModal}
+            showAddress={false}
+            showCity={false}
+            showZip={false}
           />
         </Box>
       </Modal>
