@@ -15,7 +15,6 @@ import {
   BarChartOutlined as BarChartOutlinedIcon,
   PieChartOutlined as PieChartOutlinedIcon,
   LineStyleOutlined as LineStyleOutlinedIcon,
-  TimelineOutlined as TimelineOutlinedIcon,
   MenuOutlined as MenuOutlinedIcon,
   MapOutlined as MapOutlinedIcon,
 } from '@mui/icons-material';

@@ -12,8 +12,6 @@ export default function TopbarDropdown({ data, iconName, tooltipTitle = '' }) {
     setAnchorEl(null);
   };
 
-  console.log(data);
-
   return (
     <div>
       <Tooltip title={tooltipTitle}>
