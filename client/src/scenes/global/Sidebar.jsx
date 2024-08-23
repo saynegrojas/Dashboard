@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, IconButton, Typography, useTheme } from '@mui/material';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { tokens } from '../../theme';
 import {
@@ -19,6 +19,7 @@ import {
   MenuOutlined as MenuOutlinedIcon,
   MapOutlined as MapOutlinedIcon,
 } from '@mui/icons-material';
+import { mockDataTeam } from '../../data/mockData';
 
 const Item = ({ title, to, icon, selected, setSelected, isCollapsed }) => {
   const theme = useTheme();
@@ -55,6 +56,17 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState('dashboard');
 
+  // TODO: Replace Mock data
+  const { name, access } = mockDataTeam[0];
+  const showImg = false;
+
+  const capitalizeWords = (words) => {
+    return words
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
   return (
     <Box
       sx={{
@@ -89,7 +101,7 @@ const Sidebar = () => {
             {!isCollapsed && (
               <Box display='flex' justifyContent='space-between' alignItems='center' ml='15px'>
                 <Typography variant='h3' color={colors.grey[100]}>
-                  ADMINS
+                  {access.toUpperCase()}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed((prevState) => !prevState)}>
                   <MenuOutlinedIcon />
@@ -102,21 +114,24 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb='25px'>
               <Box display='flex' justifyContent='center' alignItems='center'>
-                <img
-                  alt='profile-user'
-                  width='100px'
-                  height='100px'
-                  // src={`XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX${'John Doe'}&background=0D8ABC&color=fff`}
-                  src={`../../assets/profile.jpg`}
-                  style={{ cursor: 'pointer', borderRadius: '50%' }}
-                />
+                {showImg ? (
+                  <img
+                    alt='profile-user'
+                    width='100px'
+                    height='100px'
+                    src={`XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX${'John Doe'}&background=0D8ABC&color=fff`}
+                    style={{ cursor: 'pointer', borderRadius: '50%' }}
+                  />
+                ) : (
+                  <Avatar sx={{ width: '100px', height: '100px' }} />
+                )}
               </Box>
               <Box textAlign='center'>
                 <Typography variant='h2' color={colors.grey[100]} fontWeight='bold' mt='5px'>
-                  Greg Rojas
+                  {name}
                 </Typography>
                 <Typography variant='h5' color={colors.greenAccent[500]}>
-                  Admin
+                  {capitalizeWords(access)}
                 </Typography>
               </Box>
             </Box>

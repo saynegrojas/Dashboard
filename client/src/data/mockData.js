@@ -2,6 +2,15 @@ import { tokens } from '../theme';
 
 export const accessTypes = [{ value: 'admin' }, { value: 'manager' }, { value: 'user' }];
 
+export const mockSettingOptions = [{ value: 'Mode', mode: 'Mode' }];
+
+export const mockProfileOptions = [
+  { value: 'Profile', icon: 'Person' },
+  { value: 'Logout', icon: 'Logout' },
+  { value: 'My Account', icon: 'Account' },
+];
+
+
 export const mockDataTeam = [
   {
     id: 1,
