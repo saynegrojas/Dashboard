@@ -5,7 +5,6 @@ import {
   DarkModeOutlined as DarkModeOutlinedIcon,
   LightModeOutlined as LightModeOutlinedIcon,
   Search as SearchIcon,
-  NotificationAddOutlined as NotificationOutlinedIcon,
 } from '@mui/icons-material';
 import TopbarDropdown from '../../components/TopbarDropdown';
 import { mockProfileOptions, mockSettingOptions } from '../../data/mockData';

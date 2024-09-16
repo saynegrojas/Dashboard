@@ -3,13 +3,13 @@ import { Box, useTheme } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
 import Header from '../../components/Header';
-import useFetchContacts from '../../hooks/useFetchContacts';
 import LoadingProgress from '../../components/LoadingProgress';
+import useFetchData from '../../hooks/useFetchData';
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { contacts, loading, error } = useFetchContacts();
+  const { data, loading, error } = useFetchData('/api/contacts/getAll');
 
   // columns for the tables from mockDataContacts data
   // cellClassName: allow us to customize the column cell (color)
@@ -93,7 +93,7 @@ const Contacts = () => {
         {loading ? (
           <LoadingProgress />
         ) : (
-          <DataGrid rows={contacts} columns={columns} slots={{ toolbar: GridToolbar }} />
+          <DataGrid rows={data} columns={columns} slots={{ toolbar: GridToolbar }} />
         )}
       </Box>
     </Box>

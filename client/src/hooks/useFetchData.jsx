@@ -2,27 +2,27 @@ import { useEffect, useState } from 'react';
 import generateEndpoints from '../constants';
 import axios from 'axios';
 
-const useFetchTeam = () => {
-  const [team, setTeam] = useState([]);
+const useFetchData = (endpoint) => {
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const apiUrl = generateEndpoints();
 
   useEffect(() => {
-    const fetchTeam = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/team/getAll`);
-        setTeam(response.data);
+        const response = await axios.get(`${apiUrl}${endpoint}`);
+        setData(response.data);
       } catch (error) {
         setError(error);
       } finally {
         setLoading(false);
       }
     };
-    fetchTeam();
-  }, [apiUrl]);
-  return { team, loading, error, setTeam };
+    fetchData();
+  }, [apiUrl, endpoint]);
+  return { data, loading, error, setData };
 };
 
-export default useFetchTeam;
+export default useFetchData;
