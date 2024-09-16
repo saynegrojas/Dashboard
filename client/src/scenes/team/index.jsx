@@ -9,7 +9,7 @@ import {
   Add as AddIcon,
 } from '@mui/icons-material';
 import Header from '../../components/Header';
-import useFetchTeam from '../../hooks/useFetchTeam';
+import useFetchData from '../../hooks/useFetchData';
 import generateEndpoints from '../../constants';
 import axios from 'axios';
 import LoadingProgress from '../../components/LoadingProgress';
@@ -19,7 +19,7 @@ import Form from '../form';
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { team, loading, error, setTeam } = useFetchTeam();
+  const { data, loading, error, setData } = useFetchData('/api/team/getAll');
   const [isLoading, setIsLoading] = useState(false);
   const [httpError, setHttpError] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -31,7 +31,7 @@ const Team = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(`${apiUrl}/api/team/getById/?id=${id}`);
-      setTeam(response.data);
+      setData(response.data);
     } catch (error) {
       setHttpError(error);
     } finally {
@@ -141,7 +141,7 @@ const Team = () => {
           <LoadingProgress />
         ) : (
           <DataGrid
-            rows={team}
+            rows={data}
             columns={columns}
             disableColumnSelector
             onRowClick={(params) => fetchTeamMember(params.row.id)}
@@ -162,7 +162,7 @@ const Team = () => {
             submitLabel='Create New Member'
             showAccess={access}
             setIsLoading={setIsLoading}
-            setData={setTeam}
+            setData={setData}
             setError={setHttpError}
             setOpenModal={setOpenModal}
             showAddress={false}
