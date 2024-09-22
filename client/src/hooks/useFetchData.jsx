@@ -13,9 +13,12 @@ const useFetchData = (endpoint) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${apiUrl}${endpoint}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         setData(response.data);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
