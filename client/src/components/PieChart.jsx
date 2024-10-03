@@ -3,9 +3,10 @@ import { tokens } from '../theme';
 import { useTheme } from '@mui/material';
 import { mockPieData as data } from '../data/mockData';
 
-const PieChart = () => {
+const PieChart = ({ isDashboard }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <ResponsivePie
       data={data}
@@ -43,8 +44,12 @@ const PieChart = () => {
           },
         },
       }}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-      innerRadius={0.5}
+      margin={
+        !isDashboard
+          ? { top: 40, right: 80, bottom: 80, left: 80 }
+          : { top: 10, right: 110, bottom: 20, left: -20 }
+      }
+      innerRadius={0.8}
       padAngle={0.7}
       cornerRadius={3}
       activeOuterRadiusOffset={8}
@@ -52,17 +57,21 @@ const PieChart = () => {
         from: 'color',
         modifiers: [['darker', 0.2]],
       }}
-      arcLinkLabelsSkipAngle={10}
+      arcLinkLabelsSkipAngle={1}
       arcLinkLabelsTextColor={colors.grey[100]}
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ from: 'color' }}
-      enableArcLabels={false}
+      enableArcLabels={!isDashboard ? true : false}
+      enableArcLinkLabels={!isDashboard ? true : false}
       arcLabelsRadiusOffset={0.4}
       arcLabelsSkipAngle={7}
+      arcLinkLabelsDiagonalLength={20}
       arcLabelsTextColor={{
         from: 'color',
         modifiers: [['darker', 2]],
       }}
+      arcLinkLabel={(d) => (isDashboard ? '' : d.label)}
+      arcLabel={(d) => `${d.value} %`}
       defs={[
         {
           id: 'dots',
@@ -85,24 +94,24 @@ const PieChart = () => {
       ]}
       legends={[
         {
-          anchor: 'bottom',
-          direction: 'row',
+          anchor: !isDashboard ? 'bottom' : 'bottom-right',
+          direction: !isDashboard ? 'row' : 'column',
           justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
+          translateX: !isDashboard ? 0 : 70,
+          translateY: !isDashboard ? 70 : -20,
+          itemsSpacing: !isDashboard ? 20 : 0,
           itemWidth: 100,
-          itemHeight: 18,
+          itemHeight: !isDashboard ? 18 : 20,
           itemTextColor: '#999',
           itemDirection: 'left-to-right',
           itemOpacity: 1,
-          symbolSize: 18,
+          symbolSize: !isDashboard ? 18 : 10,
           symbolShape: 'circle',
           effects: [
             {
               on: 'hover',
               style: {
-                itemTextColor: '#000',
+                itemTextColor: theme.palette.mode === 'dark' ? '#fff' : '#000',
               },
             },
           ],

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, useTheme, Typography, Button, Modal } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
@@ -15,11 +15,15 @@ import axios from 'axios';
 import LoadingProgress from '../../components/LoadingProgress';
 import { getTableStyle, getModalStyle } from './helperFunction';
 import Form from '../form';
+import { mockDataTeam as data } from '../../data/mockData';
+import useFetchUser from '../../hooks/useFetchUsers';
+import { formatDOB } from '../../utils/formatDOB';
 
-const Team = () => {
+const Team = ({ userData, loading, error }) => {
+  console.log(userData, 'userData');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { data, loading, error, setData } = useFetchData('/api/team/getAll');
+  // const { data, loading, error, setData } = useFetchData('/api/team/getAll');
   const [isLoading, setIsLoading] = useState(false);
   const [httpError, setHttpError] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -27,17 +31,17 @@ const Team = () => {
   const apiUrl = generateEndpoints();
   const access = true;
   // fetch single team member
-  const fetchTeamMember = async (id) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`${apiUrl}/api/team/getById/?id=${id}`);
-      setData(response.data);
-    } catch (error) {
-      setHttpError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const fetchTeamMember = async (id) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get(`${apiUrl}/api/team/getById/?id=${id}`);
+  //     setData(response.data);
+  //   } catch (error) {
+  //     setHttpError(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleClose = () => setOpenModal(false);
 
@@ -56,15 +60,29 @@ const Team = () => {
     {
       field: 'name',
       headerName: 'Name',
-      flex: 1,
       cellClassName: 'name-column--cell',
       headerAlign: 'center',
+      flex: 1,
       align: 'center',
     },
     {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
+      field: 'dob',
+      headerName: 'Date of Birth',
+      align: 'center',
+      flex: 1,
+      headerAlign: 'center',
+      renderCell: ({ row: { dob } }) => {
+        return (
+          <Typography color={colors.grey[100]} sx={{ ml: '5px' }}>
+            {formatDOB(dob)}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'state',
+      headerName: 'State',
+      flex: 1,
       align: 'center',
       headerAlign: 'center',
     },
@@ -137,14 +155,14 @@ const Team = () => {
         </Box>
       </Box>
       <Box m='10px 0 0 0' height='75vh' sx={getTableStyle(colors)}>
-        {loading || isLoading ? (
+        {loading ? (
           <LoadingProgress />
         ) : (
           <DataGrid
-            rows={data}
+            rows={userData}
             columns={columns}
             disableColumnSelector
-            onRowClick={(params) => fetchTeamMember(params.row.id)}
+            // onRowClick={(params) => fetchTeamMember(params.row.id)}
           />
         )}
       </Box>
@@ -162,7 +180,7 @@ const Team = () => {
             submitLabel='Create New Member'
             showAccess={access}
             setIsLoading={setIsLoading}
-            setData={setData}
+            // setData={setUserData}
             setError={setHttpError}
             setOpenModal={setOpenModal}
             showAddress={false}

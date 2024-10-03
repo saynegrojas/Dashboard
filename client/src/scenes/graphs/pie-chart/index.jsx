@@ -6,7 +6,11 @@ import Header from '../../../components/Header';
 const Pie = () => {
   return (
     <Box m='20px'>
-      <Header title='Pie Chart' subtitle='Simple Pie Chart' />
+      <Header
+        title='Customer Satisfactory'
+        subtitle='Measurement of customer satisfacotry for the current month'
+        isGraph={true}
+      />
       <Box height='75vh'>
         <PieChart />
       </Box>

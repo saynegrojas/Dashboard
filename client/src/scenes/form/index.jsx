@@ -23,7 +23,7 @@ const initialValues = {
 const Form = ({
   endPoint,
   setIsLoading,
-  setData,
+  // setData,
   title = 'CREATE USER',
   subtitle = 'Create a new user profile',
   submitLabel = 'Create New User',
@@ -44,7 +44,7 @@ const Form = ({
         name: `${values.firstName} ${values.lastName}`,
         phone: values.contact,
       });
-      setData(response.data.result);
+      // setData(response.data.result);
       setOpenModal((prev) => !prev);
     } catch (error) {
       console.log(error);

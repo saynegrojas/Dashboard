@@ -56,7 +56,7 @@ const Sidebar = () => {
   const [selected, setSelected] = useState('dashboard');
 
   // TODO: Replace Mock data
-  const { name, access } = mockDataTeam[0];
+  const { name, access, profile_img } = mockDataTeam[0];
   const showImg = false;
 
   const capitalizeWords = (words) => {
@@ -113,12 +113,13 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb='25px'>
               <Box display='flex' justifyContent='center' alignItems='center'>
-                {showImg ? (
+                {!showImg ? (
                   <img
                     alt='profile-user'
                     width='100px'
                     height='100px'
-                    src={`XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX${'John Doe'}&background=0D8ABC&color=fff`}
+                    src={`${mockDataTeam[0].profile_img}`}
+                    // src={`XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX${'John Doe'}&background=0D8ABC&color=fff`}
                     style={{ cursor: 'pointer', borderRadius: '50%' }}
                   />
                 ) : (
@@ -165,14 +166,14 @@ const Sidebar = () => {
               setSelected={setSelected}
               isCollapsed={isCollapsed}
             />
-            <Item
+            {/* <Item
               title='Invoices Balance'
               to='/invoices'
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
               isCollapsed={isCollapsed}
-            />
+            /> */}
             <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
               Pages
             </Typography>

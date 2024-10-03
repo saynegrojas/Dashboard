@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
-import { mockLineData as data } from '../data/mockData';
+import { callHandlingData as data } from '../data/mockData';
 import { useTheme } from '@mui/material';
 import { tokens } from '../theme';
 
@@ -45,16 +45,15 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         },
       }}
       colors={isDashboard ? { datum: 'color' } : { scheme: 'nivo' }} // added
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 180, bottom: 50, left: 60 }}
       xScale={{ type: 'point' }}
       yScale={{
         type: 'linear',
         min: 'auto',
         max: 'auto',
-        stacked: true,
+        stacked: false,
         reverse: false,
       }}
-      yFormat=' >-.2f'
       curve='catmullRom'
       axisTop={null}
       axisRight={null}
@@ -62,7 +61,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : 'transportation', // added
+        legend: isDashboard ? undefined : 'Time', // added
         legendOffset: 36,
         legendPosition: 'middle',
         truncateTickAt: 0,
@@ -73,7 +72,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : 'count', // added
+        legend: isDashboard ? undefined : 'Calls', // added
         legendOffset: -40,
         legendPosition: 'middle',
         truncateTickAt: 0,
@@ -114,6 +113,8 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
           ],
         },
       ]}
+      animate={true}
+      motionConfig='wobbly'
     />
   );
 };

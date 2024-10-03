@@ -1,7 +1,7 @@
 import { useTheme } from '@mui/material';
 import { ResponsiveBar } from '@nivo/bar';
 import { tokens } from '../theme';
-import { mockBarData as data } from '../data/mockData';
+import { mockCallBarData as data, mockBarKeys } from '../data/mockData';
 
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
@@ -45,10 +45,10 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={['hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut']}
-      indexBy='country'
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-      padding={0.3}
+      keys={mockBarKeys}
+      indexBy='month'
+      margin={{ top: 50, right: 140, bottom: 60, left: 60 }}
+      padding={0.7}
       valueScale={{ type: 'linear' }}
       indexScale={{ type: 'band', round: true }}
       colors={{ scheme: 'nivo' }}
@@ -82,7 +82,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : 'country', // changed
+        legend: isDashboard ? undefined : 'month', // changed
         legendPosition: 'middle',
         legendOffset: 32,
       }}
@@ -90,7 +90,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : 'food', // changed
+        legend: isDashboard ? undefined : 'transfer', // changed
         legendPosition: 'middle',
         legendOffset: -40,
       }}
@@ -109,7 +109,7 @@ const BarChart = ({ isDashboard = false }) => {
           justify: false,
           translateX: 120,
           translateY: 0,
-          itemsSpacing: 2,
+          itemsSpacing: !isDashboard ? 5 : 3,
           itemWidth: 100,
           itemHeight: 20,
           itemDirection: 'left-to-right',
@@ -127,7 +127,7 @@ const BarChart = ({ isDashboard = false }) => {
       ]}
       role='application'
       barAriaLabel={function (e) {
-        return e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue;
+        return e.id + ': ' + e.formattedValue + ' in month: ' + e.indexValue;
       }}
     />
   );
