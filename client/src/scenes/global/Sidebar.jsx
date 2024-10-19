@@ -8,7 +8,7 @@ import {
   HomeOutlined as HomeOutlinedIcon,
   PeopleOutlined as PeopleOutlinedIcon,
   ContactsOutlined as ContactsOutlinedIcon,
-  ReceiptOutlined as ReceiptOutlinedIcon,
+  // ReceiptOutlined as ReceiptOutlinedIcon,
   PersonOutlined as PersonOutlinedIcon,
   CalendarTodayOutlined as CalendarTodayOutlinedIcon,
   HelpOutlineOutlined as HelpOutlineOutlinedIcon,
@@ -118,7 +118,7 @@ const Sidebar = () => {
                     alt='profile-user'
                     width='100px'
                     height='100px'
-                    src={`${mockDataTeam[0].profile_img}`}
+                    src={`${profile_img}`}
                     // src={`XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX${'John Doe'}&background=0D8ABC&color=fff`}
                     style={{ cursor: 'pointer', borderRadius: '50%' }}
                   />
@@ -205,7 +205,7 @@ const Sidebar = () => {
               Charts
             </Typography>
             <Item
-              title='Bar Chart'
+              title='Call Transfer Quantity'
               to='/bar'
               icon={<BarChartOutlinedIcon />}
               selected={selected}
@@ -213,7 +213,7 @@ const Sidebar = () => {
               isCollapsed={isCollapsed}
             />
             <Item
-              title='Pie Chart'
+              title='Customer Satisfactory'
               to='/pie'
               icon={<PieChartOutlinedIcon />}
               selected={selected}
@@ -221,7 +221,7 @@ const Sidebar = () => {
               isCollapsed={isCollapsed}
             />
             <Item
-              title='Line Chart'
+              title='Current Calls'
               to='/line'
               icon={<LineStyleOutlinedIcon />}
               selected={selected}
@@ -229,7 +229,7 @@ const Sidebar = () => {
               isCollapsed={isCollapsed}
             />
             <Item
-              title='Geography Chart'
+              title='Call Tracker'
               to='/geography'
               icon={<MapOutlinedIcon />}
               selected={selected}

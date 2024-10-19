@@ -20,15 +20,20 @@ function App() {
   useEffect(() => {
     if (userData?.length > 0) {
       const updateUser = userData?.map((user, index) => {
+        const { state, city, postcode, street } = user.location;
         const newItem = {
-          id: index + 1,
+          id: user.id.value,
           access: data[index + 1]?.access === undefined ? 'user' : data[index + 1]?.access,
           name: `${user.name.first} ${user.name.last}`,
           email: user.email,
           phone: user.phone,
           profile_img: user.picture.thumbnail,
           dob: user.dob.date,
-          state: user.location.state,
+          state,
+          age: user.dob.age,
+          address: `${street.number} ${street.name}`,
+          city,
+          zip_code: postcode,
         };
         return newItem;
       });
@@ -56,7 +61,10 @@ function App() {
                 path='/team'
                 element={<Team userData={updatedUserData} loading={loading} error={error} />}
               />
-              <Route path='/contacts' element={<Contacts />} />
+              <Route
+                path='/contacts'
+                element={<Contacts userData={updatedUserData} loading={loading} error={error} />}
+              />
               <Route path='/invoices' element={<Invoices />} />
               <Route path='/form' element={<Form />} />
               <Route path='/bar' element={<Bar />} />

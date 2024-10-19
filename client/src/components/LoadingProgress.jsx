@@ -7,14 +7,14 @@ const LoadingProgress = () => {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box width='50%' m='0 auto' mt='40%'>
+    <Box width='100%' height='75vh' display='flex' justifyContent='center' alignItems='center'>
       <div className='circle-progress'>
-        <CircularProgress size={50} sx={{ margin: 'auto', color: colors.primary[100] }} />
+        <CircularProgress size={40} sx={{ margin: 'auto', color: colors.primary[100] }} />
       </div>
       <Typography
         variant='h3'
         color={colors.grey[100]}
-        sx={{ my: '20px', display: 'flex', justifyContent: 'center' }}
+        sx={{ ml: '10px', display: 'flex', justifyContent: 'center' }}
       >
         Loading...
       </Typography>

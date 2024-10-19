@@ -23,8 +23,7 @@ const columns = [
   },
 ];
 
-const Team = ({ userData }) => {
-  console.log('TEAM', userData);
+const AgentPerformance = ({ userData }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [updatedUserData, setUpdatedUserData] = useState([]);
@@ -48,7 +47,6 @@ const Team = ({ userData }) => {
     }
   }, [userData]);
 
-  console.log('updatedUserData', updatedUserData);
   return (
     <Box
       display='flex'
@@ -57,7 +55,7 @@ const Team = ({ userData }) => {
       p='8px'
       borderBottom={`4px solid ${colors.primary[500]}`}
     >
-      <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridAutoRows='200px' gap='80px'>
+      <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridAutoRows='200px' gap='60px'>
         {columns.map((col, colIdx) => (
           <Box
             gridColumn={col.id !== 'employee' ? 'span 2' : 'span 4'}
@@ -69,15 +67,18 @@ const Team = ({ userData }) => {
             <Typography color={colors.greenAccent[500]}>{col.label}</Typography>
             {updatedUserData.map((user, idx) =>
               col.id !== 'employee' ? (
-                <Box display='flex' alignItems='center' key={user.id} padding='5px 0'>
+                <Box display='flex' alignItems='center' key={user.id} padding='0.36rem 0'>
                   <Typography>{user[col.id]}</Typography>
                 </Box>
               ) : (
                 <Box key={user.id} display='flex' alignItems='center' padding='3px 0'>
                   {/* ID */}
-                  <Typography mr={2} style={{ width: '10px', textAlign: 'center' }}>
+                  {/* <Typography
+                    mr={2}
+                    style={{ width: '33%', textAlign: 'center', fontSize: '12px' }}
+                  >
                     {user.id}
-                  </Typography>
+                  </Typography> */}
                   {/* Avatar */}
                   <Avatar
                     sx={{ width: 26, height: 26, marginRight: '8px' }}
@@ -95,4 +96,4 @@ const Team = ({ userData }) => {
   );
 };
 
-export default Team;
+export default AgentPerformance;

@@ -6,8 +6,8 @@ import BarChart from '../../components/BarChart';
 import { tokens } from '../../theme';
 import Header from '../../components/Header';
 import StatBoxColumn from '../../components/StatBoxColumn';
-import Team from './Team';
 import PieChart from '../../components/PieChart';
+import AgentPerformance from './AgentPerformance';
 
 const Dashboard = ({ userData }) => {
   console.log('DAHS', userData);
@@ -73,7 +73,7 @@ const Dashboard = ({ userData }) => {
             </Typography>
           </Box>
           {/* TEAMS */}
-          <Team userData={userData} />
+          <AgentPerformance userData={userData} />
         </Box>
         <Box
           gridColumn='span 5'
@@ -160,34 +160,3 @@ const Dashboard = ({ userData }) => {
 };
 
 export default Dashboard;
-
-
-        // <Box>
-        //   <Typography variant='h5' fontWeight='600' color={colors.greenAccent[500]}>
-        //     {user.id}
-        //   </Typography>
-        //   <Box display='flex' justifyContent='center' alignItems='center'>
-        //     {user?.profile_img ? (
-        //       <Avatar alt={user.name} src={`${user.profile_img}`} />
-        //     ) : (
-        //       <Avatar sx={{ width: '100px', height: '100px' }} />
-        //     )}
-        //     <Box ml='10px' color={colors.grey[100]}>
-        //       {user.name}
-        //     </Box>
-        //   </Box>
-
-        //   <Typography color={colors.greenAccent[500]}>{user.incoming_calls}</Typography>
-        // </Box>
-        // <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-        //   ${user.abandoned_calls}
-        // </Box>
-        // <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-        //   ${user.abandoned_calls}
-        // </Box>
-        // <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-        //   ${user.abandoned_calls}
-        // </Box>
-        // <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-        //   ${user.abandoned_calls}
-        // </Box>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, useTheme, Typography, Button, Modal } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
@@ -9,18 +9,16 @@ import {
   Add as AddIcon,
 } from '@mui/icons-material';
 import Header from '../../components/Header';
-import useFetchData from '../../hooks/useFetchData';
-import generateEndpoints from '../../constants';
-import axios from 'axios';
+// import useFetchData from '../../hooks/useFetchData';
+// import generateEndpoints from '../../constants';
+// import axios from 'axios';
 import LoadingProgress from '../../components/LoadingProgress';
 import { getTableStyle, getModalStyle } from './helperFunction';
 import Form from '../form';
-import { mockDataTeam as data } from '../../data/mockData';
-import useFetchUser from '../../hooks/useFetchUsers';
+// import useFetchUser from '../../hooks/useFetchUsers';
 import { formatDOB } from '../../utils/formatDOB';
 
 const Team = ({ userData, loading, error }) => {
-  console.log(userData, 'userData');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   // const { data, loading, error, setData } = useFetchData('/api/team/getAll');
@@ -28,7 +26,7 @@ const Team = ({ userData, loading, error }) => {
   const [httpError, setHttpError] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
-  const apiUrl = generateEndpoints();
+  // const apiUrl = generateEndpoints();
   const access = true;
   // fetch single team member
   // const fetchTeamMember = async (id) => {
@@ -154,18 +152,18 @@ const Team = ({ userData, loading, error }) => {
           </Button>
         </Box>
       </Box>
-      <Box m='10px 0 0 0' height='75vh' sx={getTableStyle(colors)}>
-        {loading ? (
-          <LoadingProgress />
-        ) : (
+      {loading ? (
+        <LoadingProgress />
+      ) : (
+        <Box m='10px 0 0 0' height='75vh' sx={getTableStyle(colors)}>
           <DataGrid
             rows={userData}
             columns={columns}
             disableColumnSelector
             // onRowClick={(params) => fetchTeamMember(params.row.id)}
           />
-        )}
-      </Box>
+        </Box>
+      )}
       <Modal
         open={openModal}
         onClose={handleClose}
