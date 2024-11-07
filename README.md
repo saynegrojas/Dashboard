@@ -39,6 +39,9 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+### Dashboard
+![Open](client/public/assets/images/dashboard_sidebar_open.png "Open")
+
 ### Averages
 ![Averages](client/public/assets/images/average_section.png "Averages")
 
@@ -56,6 +59,3 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ### Geo Chart
 ![Geo chart](client/public/assets/images/full_geo_chart.png "Geo chart")
-
-### Open dashboard
-![Open](client/public/assets/images/dashboard_sidebar_open.png "Open")
